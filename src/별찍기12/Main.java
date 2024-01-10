@@ -1,12 +1,14 @@
 package 별찍기12;
 
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int N = scanner.nextInt();
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        int N = Integer.parseInt(bufferedReader.readLine());
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= 2 * N - 1; i++) {
             int j;
