@@ -4,6 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * arr[0][x] -> (0,x)를 선택했을 때의 최대값
+ * arr[1][x] -> (1,x)를 선택했을 때의 최대값
+ * 최종 결과 = max(arr[0][x], arr[1][x])
+ */
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
