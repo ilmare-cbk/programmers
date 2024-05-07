@@ -1,0 +1,113 @@
+package 트리.step5;
+
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class Solution {
+    List<TreeNode> nodes = new ArrayList<>();
+    int[][] C;
+    boolean[] checked;
+
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        int answer = solution.solution(6, new int[][]{{1, 2}, {2, 3}, {3, 4}, {3, 5}, {2, 6}}, 1);
+        System.out.println(answer);
+    }
+
+    public int solution(int N, int[][] C, int T) {
+        this.C = C;
+        this.checked = new boolean[N - 1];
+
+        nodes.add(new TreeNode(T, -1));
+        traverse(T);
+        Tree tree = Tree.build(nodes);
+        return tree.getMaxTurnOnCount();
+    }
+
+    private void traverse(int node) {
+        for (int i = 0; i < C.length; i++) {
+            if (checked[i]) {
+                continue;
+            }
+
+            if (C[i][0] == node) {
+                nodes.add(new TreeNode(C[i][1], node));
+                checked[i] = true;
+                traverse(C[i][1]);
+            }
+
+            if (C[i][1] == node) {
+                nodes.add(new TreeNode(C[i][0], node));
+                checked[i] = true;
+                traverse(C[i][0]);
+            }
+        }
+    }
+
+    private static class TreeNode {
+        private int id;
+        private int parentId;
+        private List<TreeNode> childNodes;
+        private boolean turnOn;
+
+        public TreeNode(int id, int parentId) {
+            this.id = id;
+            this.parentId = parentId;
+            this.childNodes = new ArrayList<>();
+            this.turnOn = true;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void addChild(TreeNode node) {
+            this.childNodes.add(node);
+        }
+
+        public boolean isRoot() {
+            return this.parentId == -1;
+        }
+
+        public void turnOff() {
+            this.turnOn = false;
+        }
+
+        public void traverse(Function<TreeNode, Void> function) {
+            for (TreeNode childNode : childNodes) {
+                childNode.traverse(function);
+            }
+            function.apply(this);
+        }
+
+    }
+
+    private static class Tree {
+        private Map<Integer, TreeNode> nodeDict = new HashMap<>();
+
+        public static Tree build(List<TreeNode> nodes) {
+            Tree tree = new Tree();
+            tree.nodeDict = nodes.stream().collect(Collectors.toMap(TreeNode::getId, Function.identity()));
+
+
+            for (TreeNode node : nodes) {
+                if (node.isRoot()) {
+                    continue;
+                }
+
+                TreeNode parent = tree.nodeDict.get(node.parentId);
+
+                if (parent != null) {
+                    parent.addChild(node);
+                }
+            }
+
+            return tree;
+        }
+
+        public int getMaxTurnOnCount() {
+            return 0;
+        }
+    }
+}
