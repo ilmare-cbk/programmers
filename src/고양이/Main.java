@@ -1,4 +1,4 @@
-package 공원산책;
+package 고양이;
 
 public class Main {
     public static void main(String[] args) {
