@@ -63,11 +63,11 @@ public class Main {
         int c1 = (c / 3) * 3;
         boolean result = true;
         for (int i = 0; i < 9; i++) {
-            if (sudoku[r][i] == candidate && i != c) result = false;
-            if (sudoku[i][c] == candidate && i != r) result = false;
-            if (i / 3 == 0 && sudoku[r1][c1 + i] == candidate && r1 != r && c1 + i != c) result = false;
-            if (i / 3 == 1 && sudoku[r1 + 1][c1 + i - 3] == candidate && r1 + 1 != r && c1 + i - 3 != c) result = false;
-            if (i / 3 == 2 && sudoku[r1 + 2][c1 + i - 6] == candidate && r1 + 2 != r && c1 + i - 6 != c) result = false;
+            if (sudoku[r][i] == candidate) result = false;
+            if (sudoku[i][c] == candidate) result = false;
+            if (i / 3 == 0 && sudoku[r1][c1 + i] == candidate) result = false;
+            if (i / 3 == 1 && sudoku[r1 + 1][c1 + i - 3] == candidate) result = false;
+            if (i / 3 == 2 && sudoku[r1 + 2][c1 + i - 6] == candidate) result = false;
         }
         return result;
     }
