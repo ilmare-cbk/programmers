@@ -11,9 +11,7 @@ import java.util.StringTokenizer;
 public class Main {
     private static int[] students;
     private static boolean[] visited;
-    private static boolean[] team;
-    private static int[] path;
-    private static int pathSize;
+    private static boolean[] decided;
     private static int cnt;
 
     public static void main(String[] args) throws IOException {
@@ -25,8 +23,7 @@ public class Main {
             int n = Integer.parseInt(br.readLine());
             students = new int[n + 1];
             visited = new boolean[n + 1];
-            team = new boolean[n + 1];
-            path = new int[n + 1];
+            decided = new boolean[n + 1];
             cnt = 0;
             StringTokenizer st = new StringTokenizer(br.readLine());
 
@@ -35,7 +32,6 @@ public class Main {
             }
 
             for (int i = 0; i < n; i++) {
-                pathSize = 0;
                 if (!visited[i + 1]) dfs(i + 1);
             }
 
@@ -46,22 +42,18 @@ public class Main {
 
     private static void dfs(int i) {
         if (visited[i]) {
-            if (!team[i]) {
-                for (int s = 0; s < pathSize; s++) {
-                    if (path[s] == i) {
-                        for (int j = s; j < pathSize; j++) {
-                            team[path[j]] = true;
-                            cnt++;
-                        }
-                        break;
-                    }
+            if (!decided[i]) {
+                cnt++;
+                int next = students[i];
+                while (next != i) {
+                    cnt++;
+                    next = students[next];
                 }
             }
-            return;
+        } else {
+            visited[i] = true;
+            dfs(students[i]);
+            decided[i] = true;
         }
-
-        visited[i] = true;
-        path[pathSize++] = i;
-        dfs(students[i]);
     }
 }
