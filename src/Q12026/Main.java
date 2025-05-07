@@ -19,45 +19,34 @@ public class Main {
         int[] dp = new int[N];
         String s = br.readLine();
         for (int i = 0; i < s.length(); i++) {
+            if (i == 0) {
+                B.add(i);
+                continue;
+            }
+
             char c = s.charAt(i);
             if (c == 'B') {
-                if (B.isEmpty()) {
-                    B.add(i);
-                    continue;
-                }
-                if (!J.isEmpty()) {
-                    B.add(i);
-                    int min = Integer.MAX_VALUE;
-                    for (Integer jIdx : J) {
-                        int k = i - jIdx;
-                        min = Math.min(min, k * k + dp[jIdx]);
-                    }
-                    dp[i] = min;
-                } else {
-                    dp[i] = -1;
-                }
+                jump(J, B, i, dp);
             } else if (c == 'O') {
-                O.add(i);
-                int min = Integer.MAX_VALUE;
-                for (Integer bIdx : B) {
-                    int k = i - bIdx;
-                    min = Math.min(min, k * k + dp[bIdx]);
-                }
-                dp[i] = min;
+                jump(B, O, i, dp);
             } else {
-                if (!O.isEmpty()) {
-                    J.add(i);
-                    int min = Integer.MAX_VALUE;
-                    for (Integer oIdx : O) {
-                        int k = i - oIdx;
-                        min = Math.min(min, k * k + dp[oIdx]);
-                    }
-                    dp[i] = min;
-                } else {
-                    dp[i] = -1;
-                }
+                jump(O, J, i, dp);
             }
         }
         System.out.println(dp[N - 1]);
+    }
+
+    private static void jump(List<Integer> prev, List<Integer> next, int i, int[] dp) {
+        if (!prev.isEmpty()) {
+            next.add(i);
+            int min = Integer.MAX_VALUE;
+            for (Integer idx : prev) {
+                int k = i - idx;
+                min = Math.min(min, k * k + dp[idx]);
+            }
+            dp[i] = min;
+        } else {
+            dp[i] = -1;
+        }
     }
 }
