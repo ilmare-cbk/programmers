@@ -17,7 +17,6 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         StringBuilder sb = new StringBuilder();
         int[] arr = new int[N + 1];
-        int[] answer = new int[N + 1];
         for (int i = 1; i <= N; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
@@ -25,17 +24,16 @@ public class Main {
         for (int i = 1; i <= N; i++) {
             int n = arr[i];
             while (!stack.isEmpty() && arr[stack.peek()] < n) {
-                answer[stack.peek()] = n;
-                stack.pop();
+                arr[stack.pop()] = n;
             }
-            stack.add(i);
+            stack.push(i);
         }
         while (!stack.isEmpty()) {
-            answer[stack.pop()] = -1;
+            arr[stack.pop()] = -1;
         }
 
         for (int i = 1; i <= N; i++) {
-            sb.append(answer[i]).append(" ");
+            sb.append(arr[i]).append(" ");
         }
         System.out.println(sb);
     }
