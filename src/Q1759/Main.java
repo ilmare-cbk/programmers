@@ -28,20 +28,27 @@ public class Main {
         a.add("u");
         Arrays.sort(alphabets);
 
-        dfs(0, 0, 0, "");
+        password(0, 0, 0, "");
         System.out.println(sb);
     }
 
-    private static void dfs(int idx, int c1, int c2, String s) {
+    /**
+     *
+     * @param idx
+     * @param c1 사용된 모음 수
+     * @param c2 사용된 자음 수
+     * @param s 만들어진 문자열
+     */
+    private static void password(int idx, int c1, int c2, String s) {
         if (s.length() == L) {
             if (c1 >= 1 && c2 >= 2) sb.append(s).append(System.lineSeparator());
         } else {
             for (int i = idx; i <= C - (L - s.length()); i++) {
                 String alphabet = alphabets[i];
                 if (a.contains(alphabet)) {
-                    dfs(i + 1, c1 + 1, c2, s + alphabet);
+                    password(i + 1, c1 + 1, c2, s + alphabet);
                 } else {
-                    dfs(i + 1, c1, c2 + 1, s + alphabet);
+                    password(i + 1, c1, c2 + 1, s + alphabet);
                 }
             }
         }
