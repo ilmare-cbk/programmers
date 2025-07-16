@@ -17,9 +17,9 @@ public class Main {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
 
-        for (int i = 1; i <= 10; i++) {
-            for (int j = i - 1; j <= 9; j++) {
-                dfs(i, j, (long) (j * Math.pow(10, i - 1)));
+        for (int i = 1; i <= 10; i++) { // 1자리수 ~ 10자리수까지 반복
+            for (int j = i - 1; j <= 9; j++) { // 가장 큰 자리수에 올 수 있는 수
+                dfs(i, j - 1, (long) (j * Math.pow(10, i - 1)));
             }
         }
 
@@ -35,9 +35,8 @@ public class Main {
             return;
         }
 
-        for (int i = start - 1; i >= 0; i--) {
-            dfs(length - 1, i, (long) (num + i * Math.pow(10, length - 2)));
+        for (int i = start; i >= 0; i--) {
+            dfs(length - 1, i - 1, (long) (num + i * Math.pow(10, length - 2)));
         }
-
     }
 }
