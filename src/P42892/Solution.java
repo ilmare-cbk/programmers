@@ -17,7 +17,7 @@ public class Solution {
 
         Node[] nodes = new Node[nodeinfo.length];
         for (int i = 0; i < nodeinfo.length; i++) {
-            nodes[i] = new Node(i + 1, nodeinfo[i][0], nodeinfo[i][1], null, null);
+            nodes[i] = new Node(i + 1, nodeinfo[i][0], nodeinfo[i][1]);
         }
 
         Arrays.sort(nodes);
@@ -30,13 +30,13 @@ public class Solution {
             while (true) {
                 if (node.x > x) {
                     if (node.left == null) {
-                        node.left = new Node(nodes[i].v, x, y, null, null);
+                        node.left = new Node(nodes[i].v, x, y);
                         break;
                     }
                     node = node.left;
                 } else {
                     if (node.right == null) {
-                        node.right = new Node(nodes[i].v, x, y, null, null);
+                        node.right = new Node(nodes[i].v, x, y);
                         break;
                     }
                     node = node.right;
@@ -76,12 +76,10 @@ public class Solution {
         Node left;
         Node right;
 
-        public Node(int v, int x, int y, Node left, Node right) {
+        public Node(int v, int x, int y) {
             this.v = v;
             this.x = x;
             this.y = y;
-            this.left = left;
-            this.right = right;
         }
 
         @Override
